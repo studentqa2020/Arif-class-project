@@ -14,10 +14,8 @@ import com.util.TakeAppScreenShot;
 import com.util.Wait;
 
 public class BaseLogin {
-
 	
-	
-	public static void getLogin() throws Throwable {
+	public static WebDriver getLogin() throws Throwable {
 		
 		System.setProperty("webdriver.chrome.driver", "./Driver/chromedriver.exe");
 		System.setProperty(ChromeDriverService.CHROME_DRIVER_SILENT_OUTPUT_PROPERTY, "true");
@@ -33,11 +31,11 @@ public class BaseLogin {
 		LoginPage login =new LoginPage(driver);
 		
 		System.out.println(driver.getTitle());
-		new Highlighter().getcolor(driver, login.getLogin());
 		TakeAppScreenShot.captureScreenShot(driver, "Cookies page");
 		
 		login.getCookies().click();
-		
+		new Highlighter().getcolor(driver, login.getLogin(), "blue");
+		TakeAppScreenShot.captureScreenShot(driver, "Sign In Link");
 		login.getLogin().click();
 		System.out.println(driver.getCurrentUrl());
 		System.out.println(driver.getTitle());
@@ -45,19 +43,18 @@ public class BaseLogin {
 		Wait.getExplicitWaitClickable(driver, login.getEmail());
 		new Highlighter().getcolor(driver, login.getEmail(), "green");
 		login.getEmail().sendKeys(BaseConfig.getconfig("email"));
-		TakeAppScreenShot.captureScreenShot(driver, "Email success");
-		
-		
+	
 		new Highlighter().getcolor(driver, login.getPassword(),"blue");
 		login.getPassword().sendKeys(BaseConfig.getconfig("password"));
-		TakeAppScreenShot.captureScreenShot(driver, "Password success");
+		
 		Thread.sleep(3000);
-
+		new Highlighter().getcolor(driver, login.getSubmit(), "red");
+		TakeAppScreenShot.captureScreenShot(driver, "Before Login");
 		login.getSubmit().click();
 		TakeAppScreenShot.captureScreenShot(driver, "Login success");
 		System.out.println(driver.getTitle());
-		
-		driver.quit();
+		return driver;
+		//driver.quit();
 
 		
 	}

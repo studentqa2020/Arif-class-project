@@ -5,8 +5,7 @@ import java.util.Properties;
 
 public class BaseConfig {
 	
-	public static String getconfig(String key) throws Throwable {
-		
+	public static String getconfig(String key) throws Throwable {		
 		
 		Properties pro = new Properties();// how to read config /note pad or text file?
 		
